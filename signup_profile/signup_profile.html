@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Ghor - Property Management Signup Portal" />
+    <meta name="theme-color" content="#6A11CB" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="signupprofile.css">
+    <title>Roofly - Property Management Signup Portal</title>
+  </head>
+  <body>
+
+    <div class="signin-profile">
+      <div class="container">
+        <!-- Navbar -->
+        <nav class="navbar">
+          <a  class="brand-name">Roofly</a>
+          <div class="nav-links">
+            <a href="/landingpage" class="nav-link">Home</a>
+            <a href="/listing" class="nav-link">Property</a>
+            <a href="/services" class="nav-link">Services</a>
+            <a href="/about" class="nav-link">About</a>
+            <a href="/contact" class="nav-link">Contact</a>
+          </div>
+          <!-- Mobile Menu Button -->
+          <button class="mobile-menu-btn" id="mobileMenuBtn" onclick="toggleMobileMenu(event)">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+          <!-- Mobile Menu -->
+          <div class="mobile-menu" id="mobileMenu">
+            <div class="mobile-nav-links">
+              <a href="/landingpage" class="nav-link">Home</a>
+              <a href="/listing" class="nav-link">Property</a>
+              <a href="/services" class="nav-link">Services</a>
+              <a href="/about" class="nav-link">About</a>
+              <a href="/contact" class="nav-link">Contact</a>
+            </div>
+          </div>
+        </nav>
+
+        <main class="login-container">
+          <div class="welcome-section">
+            <h1>Welcome to Roofly</h1>
+            <p>Your journey to finding the perfect property starts here</p>
+          </div>
+          
+          <div class="signup-options">
+            <div class="option-card" onclick="window.location.replace('/admin_signup')">
+              <div class="option-icon">🏢</div>
+              <h3>Broker Signup</h3>
+              <p>List and manage properties with our professional tools</p>
+              <button class="option-btn">Get Started</button>
+            </div>
+            
+            <div class="option-card" onclick="window.location.replace('/User_Signup')">
+              <div class="option-icon">👤</div>
+              <h3>User Signup</h3>
+              <p>Find your dream property with ease</p>
+              <button class="option-btn">Get Started</button>
+            </div>
+          </div>
+        </main>
+      </div>
+
+      <footer class="page-footer">
+        <p class="copyright">&copy; 2025 Roofly. All rights reserved.</p>
+      </footer>
+    </div>
+
+    <script>
+      function toggleMobileMenu(event) {
+        if (event) {
+          event.stopPropagation();
+        }
+        
+        const mobileMenu = document.getElementById('mobileMenu');
+        const menuBtn = document.getElementById('mobileMenuBtn');
+        const overlay = document.querySelector('.mobile-menu-overlay');
+        
+        // Toggle menu state
+        mobileMenu.classList.toggle('active');
+        menuBtn.classList.toggle('active');
+        
+        if (!overlay) {
+          const newOverlay = document.createElement('div');
+          newOverlay.className = 'mobile-menu-overlay';
+          newOverlay.onclick = function(e) {
+            e.stopPropagation();
+            toggleMobileMenu();
+          };
+          document.body.appendChild(newOverlay);
+        } else if (overlay) {
+          overlay.classList.toggle('active');
+          if (!mobileMenu.classList.contains('active')) {
+            overlay.remove();
+          }
+        }
+      }
+
+      // Handle clicks on the document
+      document.addEventListener('click', function(event) {
+        const mobileMenu = document.getElementById('mobileMenu');
+        if (mobileMenu.classList.contains('active') && 
+            !event.target.closest('#mobileMenu') && 
+            !event.target.closest('#mobileMenuBtn')) {
+          toggleMobileMenu();
+        }
+      });
+
+      // Prevent menu from closing when clicking inside it
+      document.getElementById('mobileMenu').addEventListener('click', function(event) {
+        event.stopPropagation();
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign in - Roofly</title>
+    <link rel="stylesheet" href="signin.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .response-message {
+            text-align: center;
+            margin-top: 10px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="signin-container">
+        <div class="left-section">
+            <div class="hero-content">
+                <h1 class="hero-title">Live<br>Your<br>Life<br>In<br>Your<br>Way</h1>
+            </div>
+            <div class="overlay"></div>
+        </div>
+        <div class="right-section">
+            <div class="signin-header">
+                <div class="top-text">
+                    <span>Don't have an account?</span>
+                    <a href="/User_Signup/" class="signup-link">Sign up</a>
+                </div>
+                <h2>Sign in</h2>
+            </div>
+
+            <div class="signin-form">
+                <form id="signin">
+                    <div class="form-group">
+                        <label for="email">User name or email address</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Your password</label>
+                        <div class="password-input">
+                            <input type="password" id="password" name="password" required>
+                            <button type="button" class="toggle-password" onclick="togglePassword()">
+                                Hide
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="forgot-password">
+                        <a href="/forgot-password">Forgot your password?</a>
+                    </div>
+
+                    <button type="submit" class="signin-btn" id="log">Sign in</button>
+                </form>
+
+                <div id="response-message" class="response-message"></div>
+
+                <div class="signup-prompt">
+                    <span>Don't have an account?</span>
+                    <a href="/User_Signup/">Sign up</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function togglePassword() {
+            const passwordInput = document.getElementById('password');
+            const toggleBtn = document.querySelector('.toggle-password');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                toggleBtn.textContent = 'Show';
+            } else {
+                passwordInput.type = 'password';
+                toggleBtn.textContent = 'Hide';
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            document.getElementById("signin").addEventListener("submit", async function (event) {
+                event.preventDefault();
+                if(localStorage.getItem("token")){
+                    window.alert("A session already Exists");
+                    return 0;
+                }
+                const Email = document.getElementById('email').value;
+                const Pass = document.getElementById('password').value;
+                const cred = { Email: Email, Pass: Pass };
+                const responseMessage = document.getElementById("response-message");
+
+                try {
+                    const response = await fetch("/user/login", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify(cred),
+                    });
+
+                    const data = await response.json();
+                    console.log("Success:", data);
+
+
+                    responseMessage.textContent = data.message || "Something went wrong!";
+                    responseMessage.style.color = response.ok ? "green" : "red";
+                    if(response.ok){
+                        
+                    localStorage.setItem("token",data.Token);
+                    localStorage.setItem("username",data.Username);
+                    localStorage.setItem("Email",data.Email);
+                    localStorage.setItem("KYC",data.Kyc);
+                        window.location.href="/landingpage";
+                    }
+                    else{
+                        window.alert("Incorrect Credentials");
+                        window.location.href="/landingpage";
+                    }
+                } catch (error) {
+                    console.error("Error:", error);
+                    responseMessage.textContent = "Error occurred! Please try again later.";
+                    responseMessage.style.color = "red";
+                }
+            });
+        });
+    </script>
+</body>
+</html>
