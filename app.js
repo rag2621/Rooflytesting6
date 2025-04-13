@@ -36,7 +36,7 @@ const up = multer({ storage: dest });
 
 dotenv.config();
 
-process.env.GOOGLE_APPLICATION_CREDENTIALS = "./lyrical-shore-456617-g7-ae2cc8589b50.json";
+
 
 const app = express();
 app.use(express.json());
@@ -123,7 +123,9 @@ app.post("/verify-kyc", up.single("document"), async (req, res) => {
   }
 
   try {
-    const client = new vision.ImageAnnotatorClient();
+    const client = new vision.ImageAnnotatorClient({
+      keyFilename: process.env.GOOGLE_APPLICATION_CREDENTIALS
+    });
     const [result] = await client.textDetection(imagePath);
     const detections = result.textAnnotations;
     const text = detections.length ? detections[0].description : "";
