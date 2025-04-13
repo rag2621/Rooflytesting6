@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Roofly - Property Listings</title>
+  <link rel="stylesheet" href="broker_assigned_properties.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    .profile-dropdown {
+      position: relative;
+      cursor: pointer;
+    }
+    .profile-menu {
+      position: absolute;
+      right: 0;
+      top: 120%;
+      background-color: #fff;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      border-radius: 8px;
+      min-width: 160px;
+      padding: 10px;
+      z-index: 1000;
+      display: none;
+    }
+    .profile-menu p {
+      margin: 0;
+      font-weight: 500;
+      padding: 8px;
+      text-align: center;
+      color: #333;
+    }
+    .logout-btn, .kyc-btn {
+      background: #e74c3c;
+      color: #fff;
+      border: none;
+      padding: 8px 12px;
+      width: 100%;
+      margin-top: 8px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: background 0.3s;
+    }
+    .logout-btn:hover, .kyc-btn:hover {
+      background: #c0392b;
+    }
+    .profile-icon svg {
+      width: 28px;
+      height: 28px;
+    }
+    .refresh-btn {
+      background: #3498db;
+      color: #fff;
+      border: none;
+      padding: 8px 14px;
+      border-radius: 6px;
+      font-weight: 500;
+      cursor: pointer;
+      margin-left: 12px;
+      transition: background 0.3s;
+    }
+    .refresh-btn:hover {
+      background: #2980b9;
+    }
+    .filter-btn {
+      background: #f5f5f5;
+      color: #333;
+      padding: 12px 24px;
+      border-radius: 50px;
+      border: none;
+      cursor: pointer;
+      font-weight: 500;
+      font-size: 15px;
+      transition: all 0.3s ease;
+      white-space: nowrap;
+    }
+    .filter-btn:hover {
+      background: #e8e8e8;
+    }
+    .filter-btn.active {
+      background: #4A90E2;
+      color: white;
+    }
+
+    /* Enhanced Property Section Styles */
+    .property-section {
+      padding: 20px 0;
+      background-color: #f8f9fa;
+    }
+
+    .property-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+      padding: 0 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .property-card {
+      position: relative;
+      height: 300px;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      background-size: cover;
+      background-position: center;
+    }
+
+    .property-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    }
+
+    .property-card .tag {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: rgba(255, 255, 255, 0.9);
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #333;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .property-info {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 20px;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+      color: white;
+    }
+
+    .property-info h3 {
+      margin: 0 0 8px 0;
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    .property-info .location {
+      font-size: 14px;
+      opacity: 0.9;
+      margin-bottom: 8px;
+    }
+
+    .property-info .price {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .property-stats {
+      display: flex;
+      gap: 15px;
+      font-size: 13px;
+      opacity: 0.9;
+    }
+
+    /* Updated Filter Button Styles */
+    .filter-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      padding: 20px;
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      margin: 20px;
+    }
+
+    @media (max-width: 768px) {
+      .nav-container {
+        padding: 10px;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .nav-right {
+        margin-left: auto;
+      }
+
+      .tital_and_filter {
+        padding: 15px;
+      }
+
+      .text h1 {
+        font-size: 24px;
+      }
+
+      .text h2 {
+        font-size: 16px;
+      }
+
+      .filter-container {
+        padding: 15px;
+        margin: 15px;
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+      }
+
+      .filter-container::-webkit-scrollbar {
+        display: none;
+      }
+
+      .filter-btn {
+        padding: 10px 20px;
+        font-size: 14px;
+        flex-shrink: 0;
+      }
+
+      .property-section {
+        padding: 15px 0;
+      }
+
+      .property-grid {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 15px;
+        padding: 0 15px;
+      }
+
+      .property-card {
+        height: 280px;
+      }
+
+      .property-info {
+        padding: 15px;
+      }
+
+      .property-info h3 {
+        font-size: 16px;
+      }
+
+      .property-info .location,
+      .property-info .price {
+        font-size: 14px;
+      }
+
+      .property-stats {
+        font-size: 12px;
+        gap: 12px;
+      }
+
+      .property-card .tag {
+        font-size: 11px;
+        padding: 5px 10px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .property-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+
+      .property-card {
+        height: 260px;
+      }
+
+      .filter-container {
+        padding: 12px;
+        margin: 12px;
+      }
+
+      .filter-btn {
+        padding: 8px 16px;
+        font-size: 13px;
+      }
+
+      .property-info {
+        padding: 12px;
+      }
+
+      .property-info h3 {
+        font-size: 15px;
+      }
+
+      .property-info .location,
+      .property-info .price {
+        font-size: 13px;
+      }
+
+      .property-stats {
+        font-size: 11px;
+        gap: 10px;
+      }
+    }
+
+    /* Updated Title and Filter Section Styles */
+    .tital_and_filter {
+      padding: 20px;
+      background: #fff;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .text {
+      padding: 0 20px;
+      margin-bottom: 20px;
+    }
+
+    .text h1 {
+      font-size: 28px;
+      font-weight: 600;
+      color: #333;
+      margin: 0;
+      margin-bottom: 8px;
+    }
+
+    .text h2 {
+      font-size: 16px;
+      font-weight: 400;
+      color: #666;
+      margin: 0;
+    }
+
+    .filter {
+      background: #fff;
+      border-radius: 30px;
+      padding: 5px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .filter-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding: 10px;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+
+    .filter-container::-webkit-scrollbar {
+      display: none;
+    }
+
+    .filter-btn {
+      background: #f5f5f5;
+      color: #333;
+      padding: 12px 24px;
+      border-radius: 50px;
+      border: none;
+      cursor: pointer;
+      font-weight: 500;
+      font-size: 15px;
+      transition: all 0.3s ease;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .filter-btn:hover {
+      background: #e8e8e8;
+    }
+
+    .filter-btn.active {
+      background: #4A90E2;
+      color: white;
+    }
+
+    @media (max-width: 768px) {
+      .tital_and_filter {
+        padding: 15px;
+      }
+
+      .text {
+        padding: 0 10px;
+        margin-bottom: 15px;
+      }
+
+      .text h1 {
+        font-size: 24px;
+      }
+
+      .text h2 {
+        font-size: 14px;
+      }
+
+      .filter {
+        border-radius: 20px;
+      }
+
+      .filter-container {
+        padding: 8px;
+        gap: 8px;
+      }
+
+      .filter-btn {
+        padding: 10px 20px;
+        font-size: 14px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .tital_and_filter {
+        padding: 10px;
+      }
+
+      .text {
+        padding: 0 5px;
+        margin-bottom: 12px;
+      }
+
+      .text h1 {
+        font-size: 22px;
+      }
+
+      .text h2 {
+        font-size: 13px;
+      }
+
+      .filter {
+        border-radius: 15px;
+      }
+
+      .filter-container {
+        padding: 6px;
+        gap: 6px;
+      }
+
+      .filter-btn {
+        padding: 8px 16px;
+        font-size: 13px;
+      }
+    }
+
+    /* Add animation styles */
+    .property-grid {
+      transition: opacity 0.3s ease;
+    }
+
+    .fade-out {
+      opacity: 0;
+    }
+
+    .fade-in {
+      opacity: 1;
+    }
+
+    .no-properties {
+      text-align: center;
+      padding: 40px;
+      color: #666;
+      font-size: 16px;
+      grid-column: 1 / -1;
+    }
+
+    .error-message {
+      text-align: center;
+      padding: 40px;
+      color: #e74c3c;
+      font-size: 16px;
+      grid-column: 1 / -1;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a  class="logo">
+        <img src="./LOGO.png" alt="Ghor Logo" class="logo-img">
+      </a>
+      
+      <div class="nav-links">
+        <a href="/brokerpage">Home</a>
+        <a href="/yourlistings">My Listings</a>
+        <a href="/listinggg">List Property</a>
+        <a href="/contact/contact.html">Contact</a>
+      </div>
+      
+      <div class="nav-right">
+        <div class="profile-dropdown" onclick="toggleProfileDropdown()">
+          <div class="profile-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+              viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+              <circle cx="12" cy="7" r="4"/>
+            </svg>
+          </div>
+          <div class="profile-menu" id="profile-menu">
+            <p id="username-display">null</p>
+            <button class="kyc-btn" onclick="checkKYC()">KYC</button>
+            <button class="logout-btn" onclick="logout(event)">Logout</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="tital_and_filter">  
+    <div class="text">
+      <h1 id="username-heading">User</h1>
+      <h2>These Properties are assigned by Roofly to you</h2>
+    </div>
+    <div class="filter">
+      <div class="filter-container">
+        <button class="filter-btn active" data-type="all" onclick="filterProperties('all')">All Properties</button>
+        <button class="filter-btn" data-type="Flat" onclick="filterProperties('Flat')">Flat</button>
+        <button class="filter-btn" data-type="PG" onclick="filterProperties('PG')">PG</button>
+        <button class="filter-btn" data-type="house" onclick="filterProperties('house')">House</button>
+        <button class="filter-btn" data-type="villa" onclick="filterProperties('villa')">Villa</button>
+        <button class="filter-btn" data-type="apartment" onclick="filterProperties('apartment')">Apartment</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Property Section -->
+  <section class="property-section">
+    <div class="property-grid" id="property-grid"></div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-container">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>About Us</h4>
+                <p>Roofly is your trusted partner in finding the perfect property. We make real estate simple and accessible.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="/brokerpage">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Contact Us</h4>
+                <p>Email: contact@rooflyestates.com</p>
+                <p>Phone: +91 77977 89073</p>
+              
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Roofly. All rights reserved.</p>
+        </div>
+    </div>
+  </footer>
+
+  <script>
+    if (!localStorage.getItem("token")) {
+      logout(event);
+      window.location.replace("/landingpage");
+    }
+
+    function toggleProfileDropdown() {
+      const menu = document.getElementById("profile-menu");
+      menu.style.display = menu.style.display === "block" ? "none" : "block";
+    }
+
+    function logout(e) {
+      localStorage.removeItem("username");
+      localStorage.removeItem("Email");
+      localStorage.removeItem("KYC");
+      localStorage.removeItem("type");
+      localStorage.removeItem("City");
+      localStorage.removeItem("token");
+      localStorage.removeItem("assignedProperties");
+      window.location.replace("/landingpage");
+    }
+
+    function checkKYC() {
+      const kycStatus = localStorage.getItem("KYC");
+      if (kycStatus === "Approved") {
+        alert("Your KYC is already verified.");
+      } else {
+        window.location.href="/auth/kyc";
+      }
+    }
+
+    let allProperties = [];
+
+    async function loadProperties() {
+      const container = document.getElementById('property-grid');
+      container.innerHTML = '';
+
+      try {
+        const res = await fetch(`/api/broker-properties/${localStorage.getItem("City")}`);
+        const data = await res.json();
+        allProperties = data; // Store all properties
+        localStorage.setItem("assignedProperties", JSON.stringify(data));
+        renderProperties(data);
+      } catch (error) {
+        console.error('Error loading properties:', error);
+        container.innerHTML = '<p class="error-message">Failed to load properties. Please try again later.</p>';
+      }
+    }
+
+    function renderProperties(properties) {
+      const container = document.getElementById('property-grid');
+      container.innerHTML = '';
+
+      if (properties.length === 0) {
+        container.innerHTML = '<p class="no-properties">No properties found for this category.</p>';
+        return;
+      }
+
+      properties.forEach(property => {
+        const card = document.createElement('div');
+        card.className = 'property-card';
+        card.style.backgroundImage = `url('${property.Images[0]}')`;
+
+        card.innerHTML = `
+          <span class="tag">${property.Type}</span>
+          <div class="property-info">
+            <h3>${property.Title}</h3>
+            <p class="location">${property.Location}</p>
+            <p class="price">${property.price}</p>
+            <div class="property-stats">
+              <span>${property.Bed} Beds</span>
+              <span>${property.Bath} Baths</span>
+              <span>${property.Area}</span>
+            </div>
+          </div>
+        `;
+
+        card.addEventListener('click', function() {
+          localStorage.setItem('Id', property.PropertyId);
+          window.location.href = '/intrusted_properties';
+        });
+
+        container.appendChild(card);
+      });
+    }
+
+    function filterProperties(type) {
+      // Update active button
+      const buttons = document.querySelectorAll('.filter-btn');
+      buttons.forEach(btn => {
+        btn.classList.remove('active');
+        if (btn.getAttribute('data-type') === type) {
+          btn.classList.add('active');
+        }
+      });
+
+      // Filter properties
+      const filteredProperties = type === 'all' 
+        ? allProperties 
+        : allProperties.filter(p => p.Type.toLowerCase() === type.toLowerCase());
+
+      // Add animation class to container
+      const container = document.getElementById('property-grid');
+      container.classList.add('fade-out');
+
+      // Render after brief animation
+      setTimeout(() => {
+        renderProperties(filteredProperties);
+        container.classList.remove('fade-out');
+        container.classList.add('fade-in');
+        setTimeout(() => {
+          container.classList.remove('fade-in');
+        }, 300);
+      }, 300);
+    }
+
+    window.onload = async function() {
+      const username = localStorage.getItem("username");
+      document.getElementById("username-display").textContent = username || "null";
+      document.getElementById("username-heading").textContent = (username || "null") + "!";
+      await loadProperties();
+    };
+
+    window.addEventListener("click", function(e) {
+      if (!e.target.closest(".profile-dropdown")) {
+        document.getElementById("profile-menu").style.display = "none";
+      }
+    });
+  </script>
+</body>
+</html>
+
