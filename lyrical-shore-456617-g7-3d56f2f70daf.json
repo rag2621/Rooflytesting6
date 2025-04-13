@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "lyrical-shore-456617-g7",
+  "private_key_id": "3d56f2f70daf267450d9a931559154d35aace8b6",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCW991mvR9wRrvi\nDA8akHTOQd8D2lY9f08mCpZf0t0mpOAENLBBal+9R/cBSQnLbk5lWCot3xkNTQ6U\n37i0i0+YJWuLtymk9Ekmb6hzw5jAvY21g9V0+5FYetNazoYmgyIRcBttGMJIuRC6\nAzxiTLRP92WFwzz9ZXgJomoprRbn0UaKk3fc08UAkrZJ3NoqKhBnwgRdi6tSw5Od\n0KPsl51nJIYDJA6cz+ni/SjJHPEaO+i51rmeG/VVbabqX+ouHYhZULeYqIGRyyVf\ncNnxgqM3+OJFVJjjFFT4K1Vz4bJKD1f7OsXNJnhul1xMy5BCtZE4cX4W7gYUlt0E\n6Y0sKjrpAgMBAAECggEAKbltrpR8mOpjyRDuJ7hfIBZijc0NYsfJ10i70NYVmzWc\nWG07fYjp1wWJxggqtdfRwP7CAZWUdfGjIxBGG1gZcoJ9G8tOrjF5+i6IDx6zHCoH\nfXBnUYKp5BtmSMWlnAVIKCuk2N0r7S+A6Pg1+zEZ8LP+kh6ov5wIthj2YHhfSUhH\n5Mo7xZD94rDubAbj3RO06fRSotvLPWHSX8vzAQCZhTfRDaM/I43iSEZD1axhhQyT\n2/iv1xNHUgFORpZJnbI9XYRA62hCRgEQecdJHlOKLW7gN5IEJbBkORk0GlB2pJ2h\nmbbOT6Aa64r9sADXP2JMP8VR5PgP1pDcHGytbjlGhQKBgQDRdEUvKmUcKAQLQu15\nV0KIG8S4blxaIYui0wBM9R0MUxBCWWRngjIZ4rlRguHiRxfwf6dCDTo3C775ET1f\nzriHV9SdPfXp6kL2jpw2ZgUNzjUHW4aemw14zhBLz4ABTb5NMOUMb3b9KMh67ZuQ\nZcw00RMF68hGK4ZvqKgyngG56wKBgQC4hFyNBWnRy46cJSXoI23UOgz5+LulsaYS\nfexMcB0fbv7DcAXxGHtit/bliTEwo+Bw62lnJWxUradh2pjK6AoKNcxYxcjbb1i3\nP6P+KQNg2d8GT5rYvyof1CdflKD+8eHWNXmjDqUkacd0/wtDUaWC38rgx9T+W4Hh\nnlUWDTj1ewKBgD1KAYiYpjeD+hL1hZmxD/XV8k1pdbqmAD8n8PmT6+kUUTipAblM\nHq72afXRD5nv5bBpGh840aUT2dD123iye8qWx88vN0s4UlnlRw6f8bCle1zoyk6U\n3m9QFPKqCDHZdusNeKiX4UCY83kNGC07rHJ0D1X3NYZa7B62Qml1VNn7AoGAIeAr\nHbjgtKOqiwBG9VeL0mrV9w6zZLg4xSxZNa9fqWW3YCow7RKRlI4xxfJqFYQAsLqH\nn2g/e0xmbpCzfI0dSsKVwbaOKbtHjl0gvojJFf7p8z6qLyDpmu5YTDP9WtENpUYs\nDsOhjg3dkJ1CdBmJSX3MwXfuosQqFEH9XQ8QZgECgYBReRO1yxK5vEjbbUkt6H1a\nguhXRZS/NSybMdmIIEkYQRJTo4k8ePyNaVKU0BEmUZq6124SmSq1Wkfrf+hC4I5y\np0Zze7diJT+sDhlFw8+rbWN0A4mkP/VwzkEJo91UjRChfUsrjoVkZ1slFfM7VSWP\n0WzJM9jnx2wEdtazAczAuA==\n-----END PRIVATE KEY-----\n",
+  "client_email": "raghav-dhiman@lyrical-shore-456617-g7.iam.gserviceaccount.com",
+  "client_id": "105525802374657646135",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/raghav-dhiman%40lyrical-shore-456617-g7.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
