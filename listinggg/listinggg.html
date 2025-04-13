@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ghor - Add Property</title>
+    <link rel="stylesheet" href="add_property.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="/" class="logo">
+                <img src="LOGO.png" alt="Ghor Logo" class="logo-img">
+            </a>
+            
+            <div class="nav-links desktop-nav">
+                <a href="javascript:void(0)" class="active" id="home-link" onclick="window.location.replace('/landingpage')">Home</a>
+                <a href="javascript:void(0)" onclick="window.location.replace('/listing')">Properties</a>
+                <a href="javascript:void(0)" onclick="window.location.replace('#services')">Services</a>
+                <a href="javascript:void(0)" onclick="window.location.replace('#about')">About</a>
+            </div>
+            
+            <div class="nav-right desktop-nav">
+                <div class="profile-icon">
+                    <i class="fas fa-user"></i>
+                </div>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <button class="mobile-menu-close" id="mobileMenuClose">
+            <i class="fas fa-times"></i>
+        </button>
+        <div class="mobile-nav-links">
+            <a href="/landingpage" id="mobile-home-link">Home</a>
+            <a href="/listing">Properties</a>
+            <a href="#services">Services</a>
+            <a href="#about">About</a>
+            <a href="/contact">Contact</a>
+            <a href="/profile">Profile</a>
+        </div>
+    </div>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+
+    <!-- Main Content -->
+    <main class="add-property">
+        <div class="container">
+            <div class="form-header">
+                <h1>Add New Property</h1>
+                <p>Fill in the details below to list your property</p>
+            </div>
+
+            <form class="property-form">
+                <!-- Basic Information -->
+                <section class="form-section">
+                    <h2>Basic Information</h2>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="property-title">Property Title</label>
+                            <input type="text" id="property-title" placeholder="e.g., Luxury Villa with Pool">
+                        </div>
+                        <div class="form-group">
+                            <label for="property-type">Property Type</label>
+                            <select id="property-type">
+                                <option value="">Select Type</option>
+                                <option value="house">House</option>
+                                <option value="apartment">Apartment</option>
+                                <option value="villa">Villa</option>
+                                <option value="Flat">Flat</option>
+                                <option value="PG">PG</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="property-status">Status</label>
+                            <select id="property-status">
+                                <option value="">Select Status</option>
+                                <option value="sale">For Sale</option>
+                                <option value="rent">For Rent</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="property-price">Price</label>
+                            <input type="number" id="property-price" placeholder="Enter price">
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Location -->
+                <section class="form-section">
+                    <h2>Location</h2>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="property-address">Address</label>
+                            <input type="text" id="property-address" placeholder="Enter full address">
+                        </div>
+                        <div id="autocomplete-suggestions"></div>
+                        <div class="form-group">
+                            <label for="property-city">City</label>
+                            <input type="text" id="city" oninput="capitalizeCity()" placeholder="Enter city">
+                        </div>
+                        <div class="form-group">
+                            <label for="property-state">State</label>
+                            <input type="text" id="property-state" placeholder="Enter state">
+                        </div>
+                        <div class="form-group">
+                            <label for="property-zip">ZIP Code</label>
+                            <input type="text" id="property-zip" placeholder="Enter ZIP code">
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Property Details -->
+                <section class="form-section">
+                    <h2>Property Details</h2>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="bedrooms">Bedrooms</label>
+                            <input type="number" id="bedrooms" placeholder="Number of bedrooms">
+                        </div>
+                        <div class="form-group">
+                            <label for="bathrooms">Bathrooms</label>
+                            <input type="number" id="bathrooms" placeholder="Number of bathrooms">
+                        </div>
+                        <div class="form-group">
+                            <label for="area">Area (sq ft)</label>
+                            <input type="number" id="area" placeholder="Total area">
+                        </div>
+                        <div class="form-group">
+                            <label for="year-built">Year Built</label>
+                            <input type="number" id="year-built" placeholder="Year of construction">
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Amenities -->
+                <section class="form-section">
+                    <h2>Amenities</h2>
+                    <div class="amenities-container">
+                        <input type="checkbox" id="parking" name="amenities" value="Parking">
+                        <label for="parking">Parking</label>
+        
+                        <input type="checkbox" id="pool" name="amenities" value="Swimming Pool">
+                        <label for="pool">Swimming Pool</label>
+        
+                        <input type="checkbox" id="gym" name="amenities" value="Gym">
+                        <label for="gym">Gym</label>
+        
+                        <input type="checkbox" id="wifi" name="amenities" value="WiFi">
+                        <label for="wifi">WiFi</label>
+        
+                        <input type="checkbox" id="garden" name="amenities" value="Garden">
+                        <label for="garden">Garden</label>
+        
+                        <input type="checkbox" id="security" name="amenities" value="Security">
+                        <label for="security">Security</label>
+                    </div>
+                </section>
+
+                <!-- Media Upload -->
+                <section class="form-section">
+                    <h2>Property Images</h2>
+                    <div class="media-upload">
+                        <label class="custom-file-upload">
+                            <input type="file" id="property-images" multiple accept="image/*">
+                            Choose Images
+                        </label>
+                           
+                            
+                        </div>
+                        <div class="upload-preview" id="upload-preview"">
+                            <!-- Preview images will be added here -->
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Description -->
+                <section class="form-section">
+                    <h2>Description</h2>
+                    <div class="form-group">
+                        <label for="property-description">Property Description</label>
+                        <textarea 
+                            id="property-description" 
+                            rows="5" 
+                            placeholder="Describe your property in detail. Include key features, unique selling points, and any special amenities..."
+                            maxlength="1000"
+                        ></textarea>
+                        <div class="char-counter">
+                            <span id="char-count">0</span>/1000 characters
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Submit Button -->
+                <div class="form-actions">
+                    <button type="button" class="btn-secondary">Cancel</button>
+                    <button type="submit" class="btn-primary" id="submit">Submit Property</button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>About Us</h4>
+                    <p>Roofly is your trusted partner in finding the perfect property. We make real estate simple and accessible.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="/landingpage">Home</a></li>
+                        <li><a href="#about">About</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact Us</h4>
+                    <p>Email: rooflyestates@gmail.com</p>
+                    <p>Phone: +91 77977 89073</p>
+                    <p>Address: 134-A, Guru Fateh Town, Chandigarh-Ludhiana Highway, Punjab</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Roofly. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Mobile Menu Script -->
+     <script>
+      function capitalizeCity() {
+    const cityInput = document.getElementById('city');
+    let cityValue = cityInput.value;
+
+    // Check if the input is not empty
+    if (cityValue.length > 0) {
+        // Capitalize the first letter and make the rest lowercase
+        cityValue = cityValue.charAt(0).toUpperCase() + cityValue.slice(1).toLowerCase();
+    }
+
+    // Update the input field with the corrected value
+    cityInput.value = cityValue;
+}
+        // DOM Elements
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+        const mobileMenuClose = document.getElementById('mobileMenuClose');
+        const propertyForm = {
+            title: document.getElementById('property-title'),
+            type: document.getElementById('property-type'),
+            bedrooms: document.getElementById('bedrooms'),
+            bathrooms: document.getElementById('bathrooms'),
+            city: document.getElementById('city'),
+            address: document.getElementById('property-address'),
+            area: document.getElementById('area'),
+            description: document.getElementById('property-description'),
+            images: document.getElementById('property-images'),
+            submit: document.getElementById('submit'),
+            uploadPreview: document.getElementById('upload-preview')
+        };
+
+        // Global Variables
+        let imageFiles = [];
+
+        // Authentication & Authorization
+        function checkAuthorization() {
+            if (!(localStorage.getItem("token") && localStorage.getItem("KYC") == "Approved")) {
+                window.alert("You need to login or verify your kyc for listing properties!");
+                window.location.replace(localStorage.getItem("type") ? "/brokerpage" : "/landingpage");
+            }
+        }
+
+        // Mobile Menu Functions
+        function toggleMobileMenu() {
+            mobileMenu.classList.toggle('active');
+            mobileMenuBtn.classList.toggle('active');
+            mobileMenuOverlay.classList.toggle('active');
+            document.body.classList.toggle('menu-open');
+        }
+
+        // Image Upload Functions
+        async function uploadSingleImage(file) {
+            const formData = new FormData();
+            formData.append("image", file);
+            formData.append("id", localStorage.getItem("propertyinfo"));
+
+            const response = await fetch("/upload", { method: "POST", body: formData });
+            const data = await response.json();
+
+            if (!response.ok) throw new Error(data.error);
+            return data.imageUrl;
+        }
+
+        async function uploadImages() {
+            const fileInput = propertyForm.images;
+            
+            if (!fileInput.files.length) {
+                alert("Please select at least one image.");
+                return;
+            }
+            if (fileInput.files.length > 5) {
+                alert("Cannot upload more than 5 photos");
+                return;
+            }
+
+            imageFiles = Array.from(fileInput.files);
+            const uploadPromises = imageFiles.map(file => uploadSingleImage(file));
+
+            try {
+                const uploadedUrls = await Promise.all(uploadPromises);
+                propertyForm.uploadPreview.innerText = "All images uploaded successfully!";
+                
+                window.alert("Property Listed Successfully");
+                window.location.replace(localStorage.getItem("type") ? "/brokerpage" : "/landingpage");
+            } catch (error) {
+                console.error("Error:", error);
+                propertyForm.uploadPreview.innerText = "Upload failed.";
+            }
+        }
+
+        // Address Autocomplete
+        function setupAddressAutocomplete() {
+            const suggestionsBox = document.getElementById('autocomplete-suggestions');
+
+            propertyForm.address.addEventListener('input', function() {
+                const query = this.value;
+
+                if (!query) {
+                    suggestionsBox.style.display = 'none';
+                    return;
+                }
+
+                fetch(`/api/address-suggestions?query=${encodeURIComponent(query)}`, {
+                    method: 'GET',
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": localStorage.getItem("token")
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'OK' && data.predictions.length > 0) {
+                        suggestionsBox.innerHTML = '';
+                        suggestionsBox.style.display = 'block';
+
+                        data.predictions.forEach(prediction => {
+                            const li = document.createElement('li');
+                            li.textContent = prediction.description;
+                            li.onclick = function() {
+                                propertyForm.address.value = prediction.description;
+                                suggestionsBox.style.display = 'none';
+                            };
+                            suggestionsBox.appendChild(li);
+                        });
+                    } else {
+                        suggestionsBox.style.display = 'none';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching suggestions:', error);
+                    suggestionsBox.style.display = 'none';
+                });
+            });
+        }
+
+        // Form Submission
+        function handleFormSubmit(event) {
+            event.preventDefault();
+
+            const propertyData = {
+                title: propertyForm.title.value,
+                propertyType: propertyForm.type.value,
+                bedrooms: propertyForm.bedrooms.value,
+                bathrooms: propertyForm.bathrooms.value,
+                city: propertyForm.city.value,
+                location: propertyForm.address.value,
+                area: propertyForm.area.value,
+                description: propertyForm.description.value,
+                amenities: [],
+                Email: localStorage.getItem("Email")
+            };
+
+            const amenitiesCheckboxes = document.querySelectorAll('.amenities-container input[type="checkbox"]');
+            amenitiesCheckboxes.forEach(checkbox => {
+                if (checkbox.checked) {
+                    propertyData.amenities.push(checkbox.value);
+                }
+            });
+
+            fetch('/listing/propertyinfo', {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(propertyData)
+            })
+            .then(res => res.json())
+            .then(ans => {
+                localStorage.setItem("propertyinfo", ans.PId);
+                uploadImages();
+            });
+        }
+
+        // Navigation Functions
+        function handleHomeNavigation(event) {
+            event.preventDefault();
+            window.location.replace( localStorage.getItem('type') ? '/brokerpage' : '/landingpage');
+        }
+
+        // Event Listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check authorization
+            checkAuthorization();
+
+            // Setup mobile menu listeners
+            mobileMenuBtn.addEventListener('click', e => {
+                e.stopPropagation();
+                toggleMobileMenu();
+            });
+
+            mobileMenuClose.addEventListener('click', e => {
+                e.stopPropagation();
+                toggleMobileMenu();
+            });
+
+            mobileMenuOverlay.addEventListener('click', toggleMobileMenu);
+
+            mobileMenu.addEventListener('click', e => e.stopPropagation());
+
+            // Setup form submission
+            propertyForm.submit.addEventListener('click', handleFormSubmit);
+
+            // Setup navigation
+           document.getElementById('home-link').addEventListener('click', handleHomeNavigation);
+            document.getElementById('mobile-home-link').addEventListener('click', handleHomeNavigation);
+
+            // Setup address autocomplete
+            setupAddressAutocomplete();
+        });
+    </script> 
+
+   
+</body>
+</html>
