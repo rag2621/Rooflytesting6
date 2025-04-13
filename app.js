@@ -93,7 +93,8 @@ app.use("/", router);
 router.get("/test", (req, res) => {
     res.json({ message: "✅ Router is working!" });
 });
-const GOOGLE_API_KEY = 'AIzaSyAZXp1qf2pU3pkiqavT6u-WSqFxp8ij0ec';
+const GOOGLE_API_KEY = process.env.GOOGLE_API_KEY;
+
 app.get("/api/properties/:id", async (req, res) => {
     try {
         const {id}=req.params;
